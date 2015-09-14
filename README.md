@@ -1,4 +1,4 @@
-**Deprecated. Use [aws-kinesis-writable](https://github.com/auth0/aws-kinesis-writable)**
+**Deprecated. Use [aws-kinesis-writable](https://github.com/auth0/kinesis-writable)**
 
 Kinesis writteable stream for bunyan.
 
