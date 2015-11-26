@@ -15,7 +15,7 @@ var _ = require('lodash');
  *
  */
 function KinesisStream (params) {
-  stream.Writable.call(this);
+  stream.Writable.call(this, { objectMode: params.objectMode });
 
   this._params = _.extend({
     buffer: true
@@ -70,7 +70,12 @@ KinesisStream.prototype._sendEntries = function () {
 
 KinesisStream.prototype._write = function (chunk, encoding, done) {
   var self = this;
-  var entry = JSON.parse(chunk.toString());
+  var entry = chunk;
+
+  if (Buffer.isBuffer(entry) || typeof entry === 'string') {
+    entry = JSON.parse(chunk.toString());
+  }
+
   var record = self._mapEntry(entry);
 
   if (this._params.buffer) {
