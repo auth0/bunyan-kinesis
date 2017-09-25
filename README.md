@@ -48,6 +48,28 @@ new BunyanKinesis({
 
 `streamName` is the name of the Kinesis Stream.
 
+`credentials` can be passed in instread of using ACCCESS_KEY / SECET. Useful for using already authenticated e.g. with CognitoIdentityCredentials.
+
+```javascript
+const AWS = require('aws-sdk')
+const BunyanKinesis = require('bunyan-kinesis')
+
+AWS.config.region = 'AWS_REGION';
+AWS.config.credentials = new CognitoIdentityCredentials({
+  IdentityPoolId: 'IDENTITY_POOL_ID'
+});
+
+AWS.config.credentials.get(err => {
+  // set credentials directly...
+  new BunyanKinesis({
+    credentials:     AWS.config.credentials,
+    region:          'AWS_REGION',
+    streamName:      'MyKinesisStream',
+    partitionKey:    'MyApp'
+  });
+})
+```
+
 **Note**: Amazon Credentials are not required. It will either use the environment variables, `~/.aws/credentials` or roles as every other aws sdk.
 
 ## License

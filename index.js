@@ -26,7 +26,7 @@ function KinesisStream (params) {
     this._queueWait = setTimeout(this._sendEntries.bind(this), 5 * 1000);
   }
 
-  this._kinesis = new AWS.Kinesis(_.pick(params, ['accessKeyId', 'secretAccessKey', 'region']));
+  this._kinesis = new AWS.Kinesis(_.pick(params, ['accessKeyId', 'secretAccessKey', 'region', 'credentials']));
 }
 
 util.inherits(KinesisStream, stream.Writable);
